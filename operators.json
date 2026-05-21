@@ -1,0 +1,246 @@
+{
+  "operators": [
+    {
+      "name": "Telkomsel",
+      "prefixes": ["0811", "0812", "0813", "0821", "0822", "0823", "0851", "0852", "0853"],
+      "color": "#FF0000",
+      "coverage": "Nasional"
+    },
+    {
+      "name": "Indosat Ooredoo",
+      "prefixes": ["0814", "0815", "0816", "0855", "0856", "0857", "0858"],
+      "color": "#FF6600",
+      "coverage": "Nasional"
+    },
+    {
+      "name": "XL Axiata",
+      "prefixes": ["0817", "0818", "0819", "0877", "0878"],
+      "color": "#0066FF",
+      "coverage": "Nasional"
+    },
+    {
+      "name": "Tri (3)",
+      "prefixes": ["0895", "0896", "0897", "0898", "0899"],
+      "color": "#FF3300",
+      "coverage": "Nasional"
+    },
+    {
+      "name": "Smartfren",
+      "prefixes": ["0881", "0882"],
+      "color": "#00CC00",
+      "coverage": "Nasional"
+    }
+  ],
+  "regions": [
+    {
+      "code": "aceh",
+      "name": "Aceh",
+      "lat": 5.5317,
+      "lng": 95.3194,
+      "operators": ["Telkomsel", "Indosat Ooredoo", "XL Axiata", "Tri (3)"]
+    },
+    {
+      "code": "sumbar",
+      "name": "Sumatera Barat",
+      "lat": -0.9457,
+      "lng": 100.4172,
+      "operators": ["Telkomsel", "Indosat Ooredoo", "XL Axiata", "Tri (3)"]
+    },
+    {
+      "code": "riau",
+      "name": "Riau",
+      "lat": 0.3031,
+      "lng": 101.4687,
+      "operators": ["Telkomsel", "Indosat Ooredoo", "XL Axiata", "Tri (3)"]
+    },
+    {
+      "code": "jambi",
+      "name": "Jambi",
+      "lat": -1.6101,
+      "lng": 103.6067,
+      "operators": ["Telkomsel", "Indosat Ooredoo", "XL Axiata", "Tri (3)"]
+    },
+    {
+      "code": "sumsel",
+      "name": "Sumatera Selatan",
+      "lat": -3.6957,
+      "lng": 104.7488,
+      "operators": ["Telkomsel", "Indosat Ooredoo", "XL Axiata", "Tri (3)"]
+    },
+    {
+      "code": "bengkulu",
+      "name": "Bengkulu",
+      "lat": -3.8004,
+      "lng": 102.2655,
+      "operators": ["Telkomsel", "Indosat Ooredoo", "XL Axiata", "Tri (3)"]
+    },
+    {
+      "code": "lampung",
+      "name": "Lampung",
+      "lat": -4.7273,
+      "lng": 105.2955,
+      "operators": ["Telkomsel", "Indosat Ooredoo", "XL Axiata", "Tri (3)"]
+    },
+    {
+      "code": "jakarta",
+      "name": "Jakarta",
+      "lat": -6.2088,
+      "lng": 106.8456,
+      "operators": ["Telkomsel", "Indosat Ooredoo", "XL Axiata", "Tri (3)", "Smartfren"]
+    },
+    {
+      "code": "jawa_barat",
+      "name": "Jawa Barat",
+      "lat": -6.9147,
+      "lng": 107.6098,
+      "operators": ["Telkomsel", "Indosat Ooredoo", "XL Axiata", "Tri (3)", "Smartfren"]
+    },
+    {
+      "code": "jawa_tengah",
+      "name": "Jawa Tengah",
+      "lat": -7.1507,
+      "lng": 110.1403,
+      "operators": ["Telkomsel", "Indosat Ooredoo", "XL Axiata", "Tri (3)"]
+    },
+    {
+      "code": "yogyakarta",
+      "name": "Yogyakarta",
+      "lat": -7.7956,
+      "lng": 110.3695,
+      "operators": ["Telkomsel", "Indosat Ooredoo", "XL Axiata", "Tri (3)"]
+    },
+    {
+      "code": "jawa_timur",
+      "name": "Jawa Timur",
+      "lat": -7.5506,
+      "lng": 112.7521,
+      "operators": ["Telkomsel", "Indosat Ooredoo", "XL Axiata", "Tri (3)"]
+    },
+    {
+      "code": "banten",
+      "name": "Banten",
+      "lat": -6.4058,
+      "lng": 106.0640,
+      "operators": ["Telkomsel", "Indosat Ooredoo", "XL Axiata", "Tri (3)"]
+    },
+    {
+      "code": "kalimantan_barat",
+      "name": "Kalimantan Barat",
+      "lat": -0.0263,
+      "lng": 109.3425,
+      "operators": ["Telkomsel", "Indosat Ooredoo", "XL Axiata"]
+    },
+    {
+      "code": "kalimantan_tengah",
+      "name": "Kalimantan Tengah",
+      "lat": -1.6735,
+      "lng": 113.5006,
+      "operators": ["Telkomsel", "Indosat Ooredoo", "XL Axiata"]
+    },
+    {
+      "code": "kalimantan_selatan",
+      "name": "Kalimantan Selatan",
+      "lat": -3.5198,
+      "lng": 114.5629,
+      "operators": ["Telkomsel", "Indosat Ooredoo", "XL Axiata"]
+    },
+    {
+      "code": "kalimantan_timur",
+      "name": "Kalimantan Timur",
+      "lat": 0.4306,
+      "lng": 116.7283,
+      "operators": ["Telkomsel", "Indosat Ooredoo", "XL Axiata"]
+    },
+    {
+      "code": "kalimantan_utara",
+      "name": "Kalimantan Utara",
+      "lat": 2.5243,
+      "lng": 116.6109,
+      "operators": ["Telkomsel", "Indosat Ooredoo"]
+    },
+    {
+      "code": "sulawesi_utara",
+      "name": "Sulawesi Utara",
+      "lat": 1.4818,
+      "lng": 124.8746,
+      "operators": ["Telkomsel", "Indosat Ooredoo", "XL Axiata"]
+    },
+    {
+      "code": "sulawesi_tengah",
+      "name": "Sulawesi Tengah",
+      "lat": -0.4317,
+      "lng": 120.4944,
+      "operators": ["Telkomsel", "Indosat Ooredoo", "XL Axiata"]
+    },
+    {
+      "code": "sulawesi_selatan",
+      "name": "Sulawesi Selatan",
+      "lat": -5.1477,
+      "lng": 119.4327,
+      "operators": ["Telkomsel", "Indosat Ooredoo", "XL Axiata", "Tri (3)"]
+    },
+    {
+      "code": "sulawesi_tenggara",
+      "name": "Sulawesi Tenggara",
+      "lat": -3.9849,
+      "lng": 122.2092,
+      "operators": ["Telkomsel", "Indosat Ooredoo", "XL Axiata"]
+    },
+    {
+      "code": "sulawesi_barat",
+      "name": "Sulawesi Barat",
+      "lat": -2.7883,
+      "lng": 119.3004,
+      "operators": ["Telkomsel", "Indosat Ooredoo"]
+    },
+    {
+      "code": "maluku",
+      "name": "Maluku",
+      "lat": -3.2048,
+      "lng": 129.1803,
+      "operators": ["Telkomsel", "Indosat Ooredoo"]
+    },
+    {
+      "code": "maluku_utara",
+      "name": "Maluku Utara",
+      "lat": 1.4127,
+      "lng": 127.7849,
+      "operators": ["Telkomsel", "Indosat Ooredoo"]
+    },
+    {
+      "code": "papua",
+      "name": "Papua",
+      "lat": -4.5709,
+      "lng": 136.8894,
+      "operators": ["Telkomsel", "Indosat Ooredoo"]
+    },
+    {
+      "code": "papua_barat",
+      "name": "Papua Barat",
+      "lat": -1.3761,
+      "lng": 132.7588,
+      "operators": ["Telkomsel", "Indosat Ooredoo"]
+    },
+    {
+      "code": "bali",
+      "name": "Bali",
+      "lat": -8.6705,
+      "lng": 115.2126,
+      "operators": ["Telkomsel", "Indosat Ooredoo", "XL Axiata", "Tri (3)"]
+    },
+    {
+      "code": "ntt",
+      "name": "Nusa Tenggara Timur",
+      "lat": -8.6500,
+      "lng": 123.5968,
+      "operators": ["Telkomsel", "Indosat Ooredoo"]
+    },
+    {
+      "code": "ntb",
+      "name": "Nusa Tenggara Barat",
+      "lat": -8.7211,
+      "lng": 117.4243,
+      "operators": ["Telkomsel", "Indosat Ooredoo", "XL Axiata"]
+    }
+  ]
+}
