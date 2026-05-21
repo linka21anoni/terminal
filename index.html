@@ -31,7 +31,7 @@
   .auth-switch { text-align: center; margin-top: 15px; font-size: 12px; color: #6a7a87; }
   .auth-error { color: #ff4444; font-size: 12px; margin-bottom: 10px; text-align: center; }
   #app { display: none; }
-  .sidebar { position: fixed; left: -280px; top: 0; width: 280px; height: 100%; background: #0a0e13; border-right: 2px solid #00ffc8; box-shadow: 0 0 20px rgba(0, 255, 200, 0.3); transition: left 0.3s ease; z-index: 1000; display: flex; flex-direction: column; }
+  .sidebar { position: fixed; left: -280px; top: 0; width: 280px; height: 100%; background: #0a0e13; border-right: 2px solid #00ffc8; box-shadow: 0 0 20px rgba(0, 255, 200, 0.3); transition: left 0.3s; z-index: 1000; display: flex; flex-direction: column; }
   .sidebar.active { left: 0; }
   .sidebar-header { display: flex; justify-content: space-between; align-items: center; padding: 20px; border-bottom: 1px solid #1a232b; }
   .sidebar-logo { display: flex; align-items: center; gap: 10px; color: #00ffc8; font-size: 18px; font-weight: 700; text-shadow: 0 0 10px #00ffc8; }
@@ -45,7 +45,7 @@
   .sidebar-menu a.active { background: rgba(0, 255, 200, 0.1); border-left: 3px solid #00ffc8; color: #00ffc8; text-shadow: 0 0 8px #00ffc8; }
   .sidebar-menu a.active svg { stroke: #00ffc8; filter: drop-shadow(0 0 5px #00ffc8); }
   .sidebar-footer { padding: 20px; border-top: 1px solid #1a232b; }
-  .logout-btn { width: 45%; padding: 10px; background: #ff4444; border: none; border-radius: 5px; color: #fff; font-weight: 700; font-size: 13px; display: flex; align-items: center; justify-content: center; gap: 10px; cursor: pointer; }
+  .logout-btn { width: 100%; padding: 10px; background: #ff4444; border: none; border-radius: 5px; color: #fff; font-weight: 700; font-size: 13px; display: flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer; transition: all 0.2s; }
   .logout-btn:hover { background: #ff2222; box-shadow: 0 0 15px rgba(255, 68, 68, 0.5); }
   .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); opacity: 0; visibility: hidden; transition: all 0.3s; z-index: 999; }
   .overlay.active { opacity: 1; visibility: visible; }
@@ -99,6 +99,15 @@
   .leaflet-control-measure a { background: #0a0e13 !important; color: #00ffc8 !important; }
   .leaflet-control-measure a:hover { background: rgba(0, 255, 200, 0.1) !important; }
   .leaflet-measure-tooltip { background: #0a0e13 !important; border: 1px solid #00ffc8 !important; color: #00ffc8 !important; }
+  .ip-details { border: 1px solid #2a3a47; padding: 15px; margin-top: 10px; border-radius: 4px; background: rgba(0, 255, 200, 0.02); }
+  .ip-detail-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px dashed #1a232b; }
+  .ip-detail-row:last-child { border-bottom: none; }
+  .ip-detail-label { color: #6a7a87; font-size: 12px; }
+  .ip-detail-value { color: #00ffc8; font-weight: 600; font-size: 13px; }
+  .operator-badge { display: inline-block; padding: 4px 12px; border-radius: 3px; background: rgba(0, 255, 200, 0.1); border: 1px solid #00ffc8; color: #00ffc8; font-size: 11px; margin-right: 8px; }
+  .tab-container { display: flex; gap: 10px; margin-bottom: 15px; flex-wrap: wrap; }
+  .tab-btn { padding: 8px 16px; background: transparent; border: 1px solid #2a3a47; color: #6a7a87; font-size: 12px; border-radius: 3px; cursor: pointer; transition: all 0.2s; }
+  .tab-btn.active { border: 1px solid #00ffc8; color: #00ffc8; background: rgba(0, 255, 200, 0.05); }
   @media (max-width: 600px) { .cards-grid { grid-template-columns: 1fr; } }
 </style>
 </head>
@@ -120,21 +129,21 @@
   <div class="sidebar" id="sidebar">
     <div class="sidebar-header">
       <div class="sidebar-logo">
-        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
          TERMINAL TRACK
       </div>
       <button class="close-btn" onclick="toggleSidebar()">×</button>
     </div>
     <ul class="sidebar-menu">
-      <li><a href="#" class="active" data-page="dashboard" onclick="switchPage('dashboard')"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>DASHBOARD</a></li>
-      <li><a href="#" data-page="profile" onclick="switchPage('profile')"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>PROFILE</a></li>
-      <li><a href="#" data-page="tracker" onclick="switchPage('tracker')"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"/></svg>TRACKER</a></li>
-      <li><a href="#" data-page="iplookup" onclick="switchPage('iplookup')"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9v-9m0-9v9"/></svg>IPLOOKUP</a></li>
-      <li><a href="#" data-page="help" onclick="switchPage('help')"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>HELP</a></li>
+      <li><a href="#" class="active" data-page="dashboard" onclick="switchPage('dashboard')"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-3m2 3l-2-3m2 3v6m0 0l-2-3m2 3l2-3m2 3v6"></path></svg>DASHBOARD</a></li>
+      <li><a href="#" data-page="profile" onclick="switchPage('profile')"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>PROFILE</a></li>
+      <li><a href="#" data-page="tracker" onclick="switchPage('tracker')"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path></svg>TRACKER</a></li>
+      <li><a href="#" data-page="iplookup" onclick="switchPage('iplookup')"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"></path></svg>IPLOOKUP</a></li>
+      <li><a href="#" data-page="help" onclick="switchPage('help')"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>HELP</a></li>
     </ul>
     <div class="sidebar-footer">
       <button class="logout-btn" onclick="logout()">
-        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
         LOGOUT
       </button>
     </div>
@@ -200,31 +209,116 @@
       <div class="page" id="page-iplookup">
         <div class="card">
           <div class="card-label" style="color:#00ffc8; font-size:14px;">IP ADDRESS LOOKUP</div>
-          <div style="display:flex; gap:10px; margin-top:10px;">
-            <input type="text" id="ipInput" placeholder="Masukkan IP (kosongkan untuk IP Anda)">
+          <div style="display:flex; gap:10px; margin-top:10px; flex-wrap: wrap;">
+            <input type="text" id="ipInput" placeholder="Masukkan IP (kosongkan untuk IP Anda)" style="flex:1; min-width:200px;">
             <button class="primary" onclick="lookupIP()" style="flex-shrink:0;">CHECK</button>
+            <button class="secondary" onclick="getMyIP()" style="flex-shrink:0;">MY IP</button>
           </div>
           <div class="error" id="ipError"></div>
           <div class="status" id="ipStatus">SIAP_MENCARI</div>
         </div>
-        <div id="ipResult" style="display:none; margin-top:15px;">
+
+        <!-- TAB NAVIGATION -->
+        <div class="tab-container" id="ipTabs" style="display:none; margin-top:15px;">
+          <button class="tab-btn active" onclick="switchIPTab('basic')">BASIC INFO</button>
+          <button class="tab-btn" onclick="switchIPTab('location')">LOCATION</button>
+          <button class="tab-btn" onclick="switchIPTab('network')">NETWORK</button>
+          <button class="tab-btn" onclick="switchIPTab('map')">MAP</button>
+        </div>
+
+        <!-- BASIC INFO TAB -->
+        <div id="ipTab-basic" class="ip-tab-content" style="display:none;">
           <div class="card">
-            <div class="card-label" style="color:#00ffc8;">RESULT</div>
-            <div style="border:1px solid #2a3a47; padding:15px; margin-top:10px; border-radius:4px;">
-              <div style="display:flex; align-items:center; gap:15px; margin-bottom:10px;">
-                <img id="ipFlag" src="" style="width:40px; height:25px; border:1px solid #2a3a47;">
+            <div class="card-label" style="color:#00ffc8;">BASIC INFORMATION</div>
+            <div class="ip-details">
+              <div class="ip-detail-row">
+                <span class="ip-detail-label">IP ADDRESS</span>
+                <span class="ip-detail-value" id="ipBasicIP">0.0.0.0</span>
+              </div>
+              <div class="ip-detail-row">
+                <span class="ip-detail-label">IP TYPE</span>
+                <span class="ip-detail-value" id="ipBasicType">IPv4</span>
+              </div>
+              <div class="ip-detail-row">
+                <span class="ip-detail-label">STATUS</span>
+                <span class="ip-detail-value" id="ipBasicStatus">-</span>
+              </div>
+              <div class="ip-detail-row">
+                <span class="ip-detail-label">HOSTNAME</span>
+                <span class="ip-detail-value" id="ipBasicHostname">-</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- LOCATION TAB -->
+        <div id="ipTab-location" class="ip-tab-content" style="display:none;">
+          <div class="card">
+            <div class="card-label" style="color:#00ffc8;">LOCATION DETAILS</div>
+            <div class="ip-details">
+              <div style="display:flex; align-items:center; gap:15px; margin-bottom:15px; padding-bottom:15px; border-bottom: 1px dashed #1a232b;">
+                <img id="ipLocationFlag" src="" style="width:50px; height:35px; border:1px solid #2a3a47; border-radius:3px;">
                 <div>
-                  <div id="ipAddress" style="color:#00ffc8; font-size:18px; font-weight:700;">0.0.0.0</div>
-                  <div style="display:flex; gap:8px; margin-top:5px;">
-                    <span style="background:#1a232b; padding:2px 8px; font-size:11px;">IPv4</span>
-                    <span id="ipISP" style="border:1px solid #00ffc8; color:#00ffc8; padding:2px 8px; font-size:11px;">ISP</span>
-                  </div>
+                  <div style="color:#00ffc8; font-size:16px; font-weight:700;" id="ipLocationCountry">LOADING</div>
+                  <div style="color:#6a7a87; font-size:12px;" id="ipLocationCode">-</div>
                 </div>
               </div>
-              <div style="font-size:13px; color:#6a7a87;">
-                <div>LAT: <span id="ipLat" style="color:#e0e0e0;">0</span></div>
-                <div>LON: <span id="ipLon" style="color:#e0e0e0;">0</span></div>
+              <div class="ip-detail-row">
+                <span class="ip-detail-label">CONTINENT</span>
+                <span class="ip-detail-value" id="ipLocationContinent">-</span>
               </div>
+              <div class="ip-detail-row">
+                <span class="ip-detail-label">REGION</span>
+                <span class="ip-detail-value" id="ipLocationRegion">-</span>
+              </div>
+              <div class="ip-detail-row">
+                <span class="ip-detail-label">CITY</span>
+                <span class="ip-detail-value" id="ipLocationCity">-</span>
+              </div>
+              <div class="ip-detail-row">
+                <span class="ip-detail-label">TIMEZONE</span>
+                <span class="ip-detail-value" id="ipLocationTimezone">-</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- NETWORK TAB -->
+        <div id="ipTab-network" class="ip-tab-content" style="display:none;">
+          <div class="card">
+            <div class="card-label" style="color:#00ffc8;">NETWORK INFORMATION</div>
+            <div class="ip-details">
+              <div class="ip-detail-row">
+                <span class="ip-detail-label">ISP</span>
+                <span class="ip-detail-value" id="ipNetworkISP">-</span>
+              </div>
+              <div class="ip-detail-row">
+                <span class="ip-detail-label">ORGANIZATION</span>
+                <span class="ip-detail-value" id="ipNetworkOrg">-</span>
+              </div>
+              <div class="ip-detail-row">
+                <span class="ip-detail-label">ASN</span>
+                <span class="ip-detail-value" id="ipNetworkASN">-</span>
+              </div>
+              <div class="ip-detail-row">
+                <span class="ip-detail-label">CONNECTION TYPE</span>
+                <span class="ip-detail-value" id="ipNetworkType">-</span>
+              </div>
+              <div class="ip-detail-row" id="ipNetworkOperatorRow" style="display:none;">
+                <span class="ip-detail-label">OPERATOR (ID)</span>
+                <span class="ip-detail-value" id="ipNetworkOperator">-</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- MAP TAB -->
+        <div id="ipTab-map" class="ip-tab-content" style="display:none;">
+          <div class="card">
+            <div class="card-label" style="color:#00ffc8;">GEOGRAPHIC MAP</div>
+            <div id="ipMapContainer" style="height:400px; border-radius:4px; border:1px solid #2a3a47; margin-top:10px;"></div>
+            <div style="margin-top:10px; font-size:12px; color:#6a7a87;">
+              LATITUDE: <span id="ipMapLat" style="color:#00ffc8;">0</span> | LONGITUDE: <span id="ipMapLon" style="color:#00ffc8;">0</span>
             </div>
           </div>
         </div>
@@ -233,10 +327,11 @@
       <!-- HELP PAGE -->
       <div class="page" id="page-help">
         <div class="help-box">
-          <div class="help-card"><div class="help-title">1. DASHBOARD</div><div class="help-desc">Menampilkan status sistem, uptime, penggunaan CPU/RAM, dan lokasi Anda saat ini.</div></div>
-          <div class="help-card"><div class="help-title">2. TRACKER</div><div class="help-desc">Masukkan nomor HP format 081234567890 lalu klik CARI LOKASI.</div></div>
-          <div class="help-card"><div class="help-title">3. IPLOOKUP</div><div class="help-desc">Masukkan IP address untuk melihat lokasi, ISP, negara, dan koordinat.</div></div>
-          <div class="help-card"><div class="help-title">4. PROFILE</div><div class="help-desc">Melihat riwayat penggunaan aplikasi dan ganti kode akses.</div></div>
+          <div class="help-card"><div class="help-title">1. DASHBOARD</div><div class="help-desc">Menampilkan status sistem, uptime, penggunaan CPU/RAM, dan lokasi Anda saat ini secara real-time.</div></div>
+          <div class="help-card"><div class="help-title">2. TRACKER</div><div class="help-desc">Masukkan nomor HP format 081234567890 untuk mencari lokasi area berdasarkan operator. Menampilkan wilayah operasi dan koordinat geografis.</div></div>
+          <div class="help-card"><div class="help-title">3. IPLOOKUP ADVANCED</div><div class="help-desc">Cari informasi lengkap IP address dengan 4 tab: Basic Info (tipe IP), Location (negara/kota), Network (ISP/operator), dan Map (visualisasi lokasi geografis).</div></div>
+          <div class="help-card"><div class="help-title">4. PROFILE</div><div class="help-desc">Kelola akun Anda, lihat riwayat aktivitas, dan ubah kode akses dengan aman.</div></div>
+          <div class="help-card"><div class="help-title">5. OPERATOR DATABASE</div><div class="help-desc">Database mencakup 5 operator utama Indonesia (Telkomsel, Indosat, XL, Tri, Smartfren) dengan cakupan 30 provinsi.</div></div>
         </div>
       </div>
 
@@ -267,43 +362,66 @@ const CURRENT_USER_KEY = "nodehistory_current_user";
 const ACCESS_CODE_KEY = "nodehistory_access_code";
 const HISTORY_KEY = "nodehistory_history";
 const SESSION_START_KEY = "nodehistory_session_start";
+const OPERATORS_URL = "https://raw.githubusercontent.com/link-anonim21/terminal/main/operators.json";
 
 // ====== GLOBAL STATE ======
-let dashMap, trackMap;
-let trackMarker;
+let dashMap, trackMap, ipMap;
+let trackMarker, ipMarker;
 let currentTileLayer;
 let sessionInterval;
+let operatorsData = null;
+let currentIPData = null;
 
-const phonePrefixes = [
-  { prefix: "0811", operator: "Telkomsel", wilayah: "Aceh-Medan", lat: 3.5952, lng: 98.6722 },
-  { prefix: "0812", operator: "Telkomsel", wilayah: "Jabodetabek", lat: -6.2088, lng: 106.8456 },
-  { prefix: "0813", operator: "Telkomsel", wilayah: "Jabodetabek", lat: -6.2088, lng: 106.8456 },
-  { prefix: "0814", operator: "Indosat", wilayah: "Jabodetabek", lat: -6.2088, lng: 106.8456 },
-  { prefix: "0815", operator: "Indosat", wilayah: "Jabodetabek", lat: -6.2088, lng: 106.8456 },
-  { prefix: "0816", operator: "Indosat", wilayah: "Jabodetabek", lat: -6.2088, lng: 106.8456 },
-  { prefix: "0817", operator: "XL", wilayah: "Jabodetabek", lat: -6.2088, lng: 106.8456 },
-  { prefix: "0818", operator: "XL", wilayah: "Jabodetabek", lat: -6.2088, lng: 106.8456 },
-  { prefix: "0819", operator: "XL", wilayah: "Jabodetabek", lat: -6.2088, lng: 106.8456 },
-  { prefix: "0821", operator: "Telkomsel", wilayah: "Jabodetabek", lat: -6.2088, lng: 106.8456 },
-  { prefix: "0822", operator: "Telkomsel", wilayah: "Jabodetabek", lat: -6.2088, lng: 106.8456 },
-  { prefix: "0823", operator: "Telkomsel", wilayah: "Sumatera-Kalimantan", lat: -0.7893, lng: 113.9213 },
-  { prefix: "0851", operator: "Telkomsel", wilayah: "Nasional", lat: -2.5489, lng: 118.0149 },
-  { prefix: "0852", operator: "Telkomsel", wilayah: "Nasional", lat: -2.5489, lng: 118.0149 },
-  { prefix: "0853", operator: "Telkomsel", wilayah: "Nasional", lat: -2.5489, lng: 118.0149 },
-  { prefix: "0855", operator: "Indosat", wilayah: "Nasional", lat: -6.2088, lng: 106.8456 },
-  { prefix: "0856", operator: "Indosat", wilayah: "Nasional", lat: -6.2088, lng: 106.8456 },
-  { prefix: "0857", operator: "Indosat", wilayah: "Nasional", lat: -6.2088, lng: 106.8456 },
-  { prefix: "0858", operator: "Indosat", wilayah: "Nasional", lat: -6.2088, lng: 106.8456 },
-  { prefix: "0877", operator: "XL", wilayah: "Nasional", lat: -6.2088, lng: 106.8456 },
-  { prefix: "0878", operator: "XL", wilayah: "Nasional", lat: -6.2088, lng: 106.8456 },
-  { prefix: "0881", operator: "Smartfren", wilayah: "Nasional", lat: -2.5489, lng: 118.0149 },
-  { prefix: "0882", operator: "Smartfren", wilayah: "Nasional", lat: -2.5489, lng: 118.0149 },
-  { prefix: "0895", operator: "Tri", wilayah: "Nasional", lat: -6.2088, lng: 106.8456 },
-  { prefix: "0896", operator: "Tri", wilayah: "Nasional", lat: -6.2088, lng: 106.8456 },
-  { prefix: "0897", operator: "Tri", wilayah: "Nasional", lat: -6.2088, lng: 106.8456 },
-  { prefix: "0898", operator: "Tri", wilayah: "Nasional", lat: -6.2088, lng: 106.8456 },
-  { prefix: "0899", operator: "Tri", wilayah: "Nasional", lat: -6.2088, lng: 106.8456 }
-];
+// ====== LOAD OPERATORS DATABASE ======
+async function loadOperatorsDatabase() {
+  try {
+    const res = await fetch(OPERATORS_URL);
+    operatorsData = await res.json();
+    console.log("Database operator berhasil dimuat", operatorsData);
+  } catch (e) {
+    console.error("Gagal memuat database operator", e);
+    loadFallbackOperatorsData();
+  }
+}
+
+function loadFallbackOperatorsData() {
+  operatorsData = {
+    "operators": [
+      { "name": "Telkomsel", "prefixes": ["0811", "0812", "0813", "0821", "0822", "0823", "0851", "0852", "0853"], "color": "#FF0000", "coverage": "Nasional" },
+      { "name": "Indosat Ooredoo", "prefixes": ["0814", "0815", "0816", "0855", "0856", "0857", "0858"], "color": "#FF6600", "coverage": "Nasional" },
+      { "name": "XL Axiata", "prefixes": ["0817", "0818", "0819", "0877", "0878"], "color": "#0066FF", "coverage": "Nasional" },
+      { "name": "Tri (3)", "prefixes": ["0895", "0896", "0897", "0898", "0899"], "color": "#FF3300", "coverage": "Nasional" },
+      { "name": "Smartfren", "prefixes": ["0881", "0882"], "color": "#00CC00", "coverage": "Nasional" }
+    ],
+    "regions": [
+      { "code": "jakarta", "name": "Jakarta", "lat": -6.2088, "lng": 106.8456, "operators": ["Telkomsel", "Indosat Ooredoo", "XL Axiata", "Tri (3)", "Smartfren"] }
+    ]
+  };
+}
+
+function findOperatorByPrefix(prefix) {
+  if (!operatorsData) return null;
+  for (let op of operatorsData.operators) {
+    if (op.prefixes.includes(prefix)) {
+      return op;
+    }
+  }
+  return null;
+}
+
+function findRegionData(phone) {
+  if (!operatorsData) return null;
+  const prefix = phone.substring(0, 4);
+  const operator = findOperatorByPrefix(prefix);
+  if (!operator) return null;
+  
+  for (let region of operatorsData.regions) {
+    if (region.operators.includes(operator.name)) {
+      return { ...region, operator: operator.name };
+    }
+  }
+  return null;
+}
 
 // ====== HISTORY & SESSION ======
 function getHistory() { return JSON.parse(localStorage.getItem(HISTORY_KEY) || '[]'); }
@@ -380,7 +498,7 @@ function login() {
 
   const savedCode = getAccessCode();
 
-  if (code!== savedCode) {
+  if (code !== savedCode) {
     errorEl.textContent = 'KODE_AKSES_SALAH';
     return;
   }
@@ -415,6 +533,7 @@ function startApp() {
   document.getElementById('auth').style.display = 'none';
   document.getElementById('app').style.display = 'block';
 
+  loadOperatorsDatabase();
   loadUserData();
   loadHistory();
   updateClock();
@@ -455,17 +574,17 @@ function changeAccessCode() {
   errorEl.textContent = '';
   successEl.textContent = '';
 
-  if (!oldCode ||!newCode ||!confirmCode) {
+  if (!oldCode || !newCode || !confirmCode) {
     errorEl.textContent = 'SEMUA_FIELD_WAJIB_DIISI';
     return;
   }
 
-  if (oldCode!== getAccessCode()) {
+  if (oldCode !== getAccessCode()) {
     errorEl.textContent = 'KODE_LAMA_SALAH';
     return;
   }
 
-  if (newCode!== confirmCode) {
+  if (newCode !== confirmCode) {
     errorEl.textContent = 'KODE_BARU_TIDAK_COCOK';
     return;
   }
@@ -513,35 +632,81 @@ function switchPage(page) {
 
   toggleSidebar();
 
-  if (page === 'dashboard' &&!dashMap) {
+  if (page === 'dashboard' && !dashMap) {
     setTimeout(initDashMap, 100);
   }
-  if (page === 'tracker' &&!trackMap) {
+  if (page === 'tracker' && !trackMap) {
     setTimeout(initTrackMap, 100);
   }
+}
+
+// ====== IP LOOKUP TABS ======
+function switchIPTab(tab) {
+  document.querySelectorAll('.ip-tab-content').forEach(el => el.style.display = 'none');
+  document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+  
+  document.getElementById(`ipTab-${tab}`).style.display = 'block';
+  event.target.classList.add('active');
+
+  if (tab === 'map' && currentIPData && !ipMap) {
+    setTimeout(initIPMap, 100);
+  }
+}
+
+function initIPMap() {
+  if (ipMap) return;
+  if (!currentIPData || !currentIPData.latitude || !currentIPData.longitude) return;
+
+  const container = document.getElementById('ipMapContainer');
+  if (!container) return;
+
+  ipMap = L.map('ipMapContainer').setView([currentIPData.latitude, currentIPData.longitude], 12);
+
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '© OpenStreetMap'
+  }).addTo(ipMap);
+
+  if (ipMarker) ipMap.removeLayer(ipMarker);
+  ipMarker = L.marker([currentIPData.latitude, currentIPData.longitude]).addTo(ipMap)
+    .bindPopup(`${currentIPData.ip}<br>${currentIPData.city}, ${currentIPData.country}`).openPopup();
+
+  L.circle([currentIPData.latitude, currentIPData.longitude], {
+    color: '#00ffc8',
+    fillColor: '#00ffc8',
+    fillOpacity: 0.2,
+    radius: 5000
+  }).addTo(ipMap);
 }
 
 // ====== DASHBOARD FUNCTIONS ======
 function updateClock() {
   const now = new Date();
   const time = now.toLocaleTimeString('id-ID');
-  document.getElementById('liveTime').textContent = time + ' WIB';
+  if (document.getElementById('liveTime')) {
+    document.getElementById('liveTime').textContent = time + ' WIB';
+  }
 }
 
 function updateSystemMonitor() {
   if (performance.memory) {
     const usedMB = (performance.memory.usedJSHeapSize / 1048576).toFixed(1);
     const totalMB = (performance.memory.jsHeapSizeLimit / 1048576).toFixed(0);
-    document.getElementById('dashRAM').textContent = `${usedMB} MB / ${totalMB} MB`;
+    if (document.getElementById('dashRAM')) {
+      document.getElementById('dashRAM').textContent = `${usedMB} MB / ${totalMB} MB`;
+    }
   } else {
-    document.getElementById('dashRAM').textContent = 'N/A';
+    if (document.getElementById('dashRAM')) {
+      document.getElementById('dashRAM').textContent = 'N/A';
+    }
   }
 
   const start = performance.now();
   let count = 0;
   while (performance.now() - start < 10) { count++; }
   const cpu = Math.min(100, Math.floor((count / 50000) * 100));
-  document.getElementById('dashCPU').textContent = cpu + '%';
+  if (document.getElementById('dashCPU')) {
+    document.getElementById('dashCPU').textContent = cpu + '%';
+  }
 }
 
 function initDashMap() {
@@ -571,41 +736,86 @@ function initDashMap() {
 }
 
 // ====== IPLOOKUP FUNCTIONS ======
+async function getMyIP() {
+  document.getElementById('ipInput').value = '';
+  await lookupIP();
+}
+
 async function lookupIP() {
-  const ip = document.getElementById('ipInput').value.trim();
+  let ip = document.getElementById('ipInput').value.trim();
   const errorEl = document.getElementById('ipError');
   const statusEl = document.getElementById('ipStatus');
-  const resultDiv = document.getElementById('ipResult');
+  const tabsDiv = document.getElementById('ipTabs');
 
   errorEl.textContent = '';
   statusEl.textContent = 'MENCARI_DATA...';
-  resultDiv.style.display = 'none';
+  tabsDiv.style.display = 'none';
 
   try {
-    const url = ip? `http://ip-api.com/json/${ip}?fields=status,message,country,countryCode,regionName,city,lat,lon,isp,query,continent`
-                   : `http://ip-api.com/json/?fields=status,message,country,countryCode,regionName,city,lat,lon,isp,query,continent`;
+    const url = ip ? `https://ipapi.co/${ip}/json/` : `https://ipapi.co/json/`;
 
     const res = await fetch(url);
     const data = await res.json();
 
-    if (data.status!== 'success') {
-      errorEl.textContent = data.message || 'IP_TIDAK_DITEMUKAN';
+    if (data.error) {
+      errorEl.textContent = 'IP_TIDAK_VALID_ATAU_TIDAK_DITEMUKAN';
       statusEl.textContent = 'GAGAL';
       return;
     }
 
-    document.getElementById('ipAddress').textContent = data.query;
-    document.getElementById('ipISP').textContent = data.isp;
-    document.getElementById('ipLat').textContent = data.lat;
-    document.getElementById('ipLon').textContent = data.lon;
-    document.getElementById('ipFlag').src = `https://flagcdn.com/48x36/${data.countryCode.toLowerCase()}.png`;
+    currentIPData = data;
 
-    resultDiv.style.display = 'block';
-    statusEl.textContent = 'DATA_DITEMUKAN';
-    addHistory(`IPLOOKUP: ${data.query} - ${data.city}, ${data.country}`);
+    // BASIC INFO TAB
+    document.getElementById('ipBasicIP').textContent = data.ip;
+    document.getElementById('ipBasicType').textContent = 'IPv' + (data.ip.includes(':') ? '6' : '4');
+    document.getElementById('ipBasicStatus').textContent = data.country_name ? 'VALID' : 'UNKNOWN';
+    document.getElementById('ipBasicHostname').textContent = data.hostname || '-';
+
+    // LOCATION TAB
+    document.getElementById('ipLocationFlag').src = `https://flagcdn.com/48x36/${data.country_code.toLowerCase()}.png`;
+    document.getElementById('ipLocationCountry').textContent = data.country_name || 'UNKNOWN';
+    document.getElementById('ipLocationCode').textContent = `(${data.country_code})`;
+    document.getElementById('ipLocationContinent').textContent = data.continent_code || '-';
+    document.getElementById('ipLocationRegion').textContent = data.region || '-';
+    document.getElementById('ipLocationCity').textContent = data.city || '-';
+    document.getElementById('ipLocationTimezone').textContent = data.timezone || '-';
+
+    // NETWORK TAB
+    document.getElementById('ipNetworkISP').textContent = data.isp || data.org || '-';
+    document.getElementById('ipNetworkOrg').textContent = data.org || '-';
+    document.getElementById('ipNetworkASN').textContent = data.asn || '-';
+    document.getElementById('ipNetworkType').textContent = data.connection_type || '-';
+
+    // Check if IP is Indonesian and try to find operator
+    if (data.country_code === 'ID' && data.ip) {
+      const ipParts = data.ip.split('.');
+      const firstOctet = parseInt(ipParts[0]);
+      
+      let operatorName = '-';
+      if ((firstOctet >= 36 && firstOctet <= 47) || (firstOctet >= 182 && firstOctet <= 192)) {
+        operatorName = 'Telkomsel';
+      } else if ((firstOctet >= 103 && firstOctet <= 114)) {
+        operatorName = 'Indosat';
+      } else if ((firstOctet >= 202 && firstOctet <= 209)) {
+        operatorName = 'XL Axiata';
+      }
+      
+      if (operatorName !== '-') {
+        document.getElementById('ipNetworkOperator').textContent = operatorName;
+        document.getElementById('ipNetworkOperatorRow').style.display = 'flex';
+      }
+    }
+
+    // MAP TAB
+    document.getElementById('ipMapLat').textContent = data.latitude?.toFixed(6) || '0';
+    document.getElementById('ipMapLon').textContent = data.longitude?.toFixed(6) || '0';
+
+    tabsDiv.style.display = 'flex';
+    statusEl.textContent = 'DATA_DITEMUKAN // KLIK TAB UNTUK DETAIL';
+    addHistory(`IPLOOKUP: ${data.ip} - ${data.city}, ${data.country_name}`);
 
   } catch (e) {
-    errorEl.textContent = 'GAGAL_CONNECT_KE_API';
+    errorEl.textContent = 'ERROR: ' + e.message;
     statusEl.textContent = 'ERROR';
   }
 }
@@ -676,38 +886,42 @@ function searchPhoneArea() {
     return;
   }
 
+  if (!operatorsData) {
+    errorEl.textContent = 'DATABASE_OPERATOR_BELUM_SIAP';
+    return;
+  }
+
   loadingEl.classList.add('active');
   searchBtn.disabled = true;
   statusEl.textContent = 'SCANNING_DATABASE_OPERATOR...';
 
   setTimeout(() => {
-    const prefix = phone.substring(0, 4);
-    const data = phonePrefixes.find(p => p.prefix === prefix);
+    const regionData = findRegionData(phone);
 
     loadingEl.classList.remove('active');
     searchBtn.disabled = false;
 
-    if (data) {
+    if (regionData) {
       statusEl.textContent = 'TARGET_LOCKED';
 
       if (trackMarker) trackMap.removeLayer(trackMarker);
 
-      trackMap.setView([data.lat, data.lng], 12, { animate: true, duration: 1 });
+      trackMap.setView([regionData.lat, regionData.lng], 12, { animate: true, duration: 1 });
 
-      trackMarker = L.marker([data.lat, data.lng]).addTo(trackMap);
+      trackMarker = L.marker([regionData.lat, regionData.lng]).addTo(trackMap);
 
       const popupContent = `
-        <div style="color:#0a0e13;">
-          <strong>OPERATOR:</strong> ${data.operator}<br>
-          <strong>WILAYAH:</strong> ${data.wilayah}<br>
-          <strong>PREFIX:</strong> ${data.prefix}<br>
-          <strong>KOORDINAT:</strong> ${data.lat}, ${data.lng}
+        <div style="color:#0a0e13; font-weight:bold;">
+          <strong>OPERATOR:</strong> ${regionData.operator}<br>
+          <strong>WILAYAH:</strong> ${regionData.name}<br>
+          <strong>NOMOR:</strong> ${phone}<br>
+          <strong>KOORDINAT:</strong> ${regionData.lat.toFixed(4)}, ${regionData.lng.toFixed(4)}
         </div>
       `;
 
       trackMarker.bindPopup(popupContent).openPopup();
 
-      L.circle([data.lat, data.lng], {
+      L.circle([regionData.lat, regionData.lng], {
         color: '#00ffc8',
         fillColor: '#00ffc8',
         fillOpacity: 0.2,
@@ -717,12 +931,12 @@ function searchPhoneArea() {
       navigator.geolocation.getCurrentPosition((pos) => {
         const userLat = pos.coords.latitude;
         const userLng = pos.coords.longitude;
-        const dist = trackMap.distance([userLat, userLng], [data.lat, data.lng]);
+        const dist = trackMap.distance([userLat, userLng], [regionData.lat, regionData.lng]);
         const km = (dist / 1000).toFixed(2);
         statusEl.textContent = `TARGET_LOCKED // JARAK: ${km} KM`;
       }, () => {});
 
-      addHistory(`TRACKER: ${phone} - ${data.operator} ${data.wilayah}`);
+      addHistory(`TRACKER: ${phone} - ${regionData.operator} ${regionData.name}`);
 
     } else {
       statusEl.textContent = 'TARGET_NOT_FOUND';
